@@ -2,35 +2,26 @@
 #include <ctime>
 #include <algorithm>
 #include <cmath>
+#include <string.h>
 using namespace std;
-double probability_of_survival (int months)
+int searchjewels(char* jewels, char* stones) //объявляем функцию которая принимает два значения
 {
-    
-    double bad_isxod=1;
-    if (months==1)
-    {
-        return 0;
+    int schetchik = 0; //создаём счётчик для подсчёта драг.камушков
+    int jewelsDlina = strlen(jewels); //определяем длинну строки jewels
+    int stonesDlina = strlen(stones); //определяем длинну строки stones
+    for(int i=0; i<stonesDlina; i++){ // создаём цикл где перебираем все камни
+        for(int j=0; j<jewelsDlina; j++){ // создаём цикл где перебираем драгоценности(ну в нашем случае тут один камень, но ведь мы могли поставить вместо "b" какое-нибудь"Aa")
+            if(stones[i] == jewels[j]) // если символ в stones равен символу в jewels
+                schetchik++; //то плюс один в счётчик
+        }
     }
-    if (months==2)
-    {
-        return 25;
-    }
-    
-    int a=1;
-    int b=1;
-    for (int i = 2; i < months; i++)
-    {
-        bad_isxod=bad_isxod*2+a;
-        a=a+b;
-    }
-    double veroyat=bad_isxod/(pow(2,months))*100;
-    return veroyat;
+    return schetchik; //выводим результат
 }
+
 int main()
 {
-    int months;
-    cout<<"Enter a number: ";
-    cin>>months;
-    cout<<"The probability of survival is "<<probability_of_survival(months)<<" %"<<endl;
+    char jewels[] = "b"; //объявляем массив с драгоценностями
+    char stones[] = "aAAbbbb"; //объявляем массив где будет солянка из обычных и драгоценных камней
+    cout<<searchjewels(jewels, stones); //выводим то что получилось в функции
     return 0;
 }
